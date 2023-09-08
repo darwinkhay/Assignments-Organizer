@@ -1,0 +1,42 @@
+{% extends "schedule/layout.html" %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'schedule/base.css' %}">
+
+<div class="bg"></div>
+<div class="content">
+    <section>
+        <div class="container-fluid p-3 bg-dark bg-gradient text-white text-center">
+            <h1>Welcome {{ user.username }}</h1>
+            <p>Here is your organizer, feel free to use it for your assignments as well as other events!</p>
+        </div>
+    </section>
+
+    <section>
+        <h5> These are your next 5 assignments due! </h5>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                {% for assignment in latest_question_list %}
+                  <td>{{ assignment.course }} </td>
+                  <td>{{ assignment.title }}</td>
+                  <td>{{ assignment.due_date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+
+
+
+
+{% endblock %}

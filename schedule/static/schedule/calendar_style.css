@@ -1,0 +1,91 @@
+/*
+
+*  REFERENCES
+*  Title: <HOW TO CREATE A CALENDAR USING DJANGO>
+*  Author: <Hui Wen>
+*  Date: <11/17/2021>
+*  Code version: <N/A>
+*  URL: <https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html>
+*  Software License: <N/A>
+*
+
+*/
+
+.bg {
+  animation:slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+
+.calendar {
+  width: 80%;
+  margin: auto;
+  font-size: 13px;
+  background-color:rgba(255,255,255,1);
+  box-shadow:0 0 .25em rgba(0,0,0,.25);
+
+}
+
+.calendar tr, .calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 5px;
+  text-align: center;
+  font-size: 18px;
+
+}
+
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 0px 0px 5px;
+
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+ul {
+  height: 90%;
+  padding: 0px 5px 0px 20px;
+}
+
+a {
+  color: #17a2b8;
+}
+
+/* cal/static/cal/styles.css */
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.btn {
+  outline: none;
+  border: 2px solid black;
+  color: black;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin: 15px;
+}
+

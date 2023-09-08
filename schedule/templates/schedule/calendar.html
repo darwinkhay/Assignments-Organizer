@@ -1,0 +1,32 @@
+
+
+
+{% extends 'schedule/layout.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'schedule/calendar_style.css' %}">
+<div class="clearfix">
+	<!-- Buttons go to next month, takes in year param and month param-->
+	<a class="btn btn-info left" href="{% url 'schedule:calendar' prev_month.0 prev_month.1 %}"> <i class="bi bi-arrow-left"></i> Previous Month</a>
+	<a class="btn btn-info right" href="{% url 'schedule:calendar' next_month.0 next_month.1 %}"> Next Month <i class="bi bi-arrow-right"></i></a>
+</div>
+<div class="bg"></div>
+
+{{ calendar }}
+
+<!--
+<div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+	<div class="modal-header">
+	  <h5 class="modal-title" id="exampleModalLabel">{{ a.title }}</h5>
+	  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	</div>
+	<div class="modal-body">
+	  poop
+	</div>
+  </div>
+</div>
+</div> trying to make it show the assignment as a modal but can't cuase im dumb-->
+{% endblock %}

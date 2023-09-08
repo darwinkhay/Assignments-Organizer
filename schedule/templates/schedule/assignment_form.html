@@ -1,0 +1,51 @@
+{% extends 'schedule/layout.html' %}
+{% block content %}
+
+
+<div class="bg"></div>
+<div class="content">
+  <section>
+    <div class="container-fluid p-3 bg-dark text-white text-center">
+      <h1>Create Assignment</h1>
+      <p>fill in the text boxes and click submit to set an assignment</p>
+    </div>
+    <form action="{% url 'schedule:create_assignment'%}" method="post" class="mt-4">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <fieldset> 
+        {% if error_message %}
+          <div class="alert alert-danger">
+            <strong>Warning!</strong> Please fill out the text boxes.
+          </div>
+        {% endif %}
+
+        {% if error_message2 %}
+          <div class="alert alert-danger">
+            <strong>Warning!</strong> Assignment title too long.
+          </div>
+        {% endif %}
+
+        <label for="course">Select a course: </label>
+        <select id="course" name="course" class="form-select" aria-label=".form-select-sm example" style="width:auto;" >
+          {% for course in course_list %}
+            <option value="{{ course.course_name }}" data-type="{{ course.course_name }}">{{ course.course_name }}</option>
+          {% endfor %}
+        </select>
+
+
+        <label for="title">Assignment Title: </label>
+        <input id="title" type="text" name="title" maxlength="200"><br><br>
+        <label for="desc">Description: </label>
+        <input id="desc" type="text" name="desc" size="50" maxlength="2000">
+        <label for="due_date">Due Date: </label>
+        <input id="due_date" type="date" name="due_date">
+      </fieldset>
+      <div>
+        <button type="submit" class="btn btn-primary text-white" >
+          Submit
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}

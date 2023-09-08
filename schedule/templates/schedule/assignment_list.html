@@ -1,0 +1,67 @@
+{% extends 'schedule/layout.html' %}
+<!-- Page for assignment lists, maybe add a sort feature later on-->
+
+
+{% block content %}
+<div class="bg"></div>
+<div class="content">
+  <section>
+    <div class="container-fluid p-3 bg-dark bg-gradient text-white text-center">
+      <h1>Assignments</h1>
+      <p>These are all your assignments</p>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Date Created</th>
+          <th>Due Date</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if assignment_list %}
+          {% for item in assignment_list %}
+          
+            <tr>
+              
+              <td>{{ item.course }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.date_created }}</td>
+              <td>{{ item.due_date }}</td>
+              <td><a href="{% url 'schedule:delete_assignment' item.id %}">delete</a></td>
+              <!--
+              <td>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Delete
+                  </label>
+                </div>
+              </td> yeah no this is too difficult-->
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td>No assignments.</td>
+          </tr>
+          
+        {% endif %}
+        
+        <a href="{% url 'schedule:assignment_form' %}" class='btn ca'><i class="bi bi-journal-plus"></i> Create a new assignment</a>
+        <a href="{% url 'schedule:assignment_list' %}?sort=due_date" class='btn dd' style=''> Sort by Due Date</a>
+        <a href="{% url 'schedule:assignment_list' %}?sort=date_created" class='btn dc' style=''> Sort by Date Created</a>
+        <a href="{% url 'schedule:assignment_list' %}?sort=description" class='btn ds' style=''> Sort by Description</a>
+        <a href="{% url 'schedule:assignment_list' %}?sort=title" class='btn st' style=''> Sort by Title</a>
+        <a href="{% url 'schedule:assignment_list' %}?sort=course" class='btn sc' style=''> Sort by Course</a>
+
+      </tbody>
+    </table>
+  </section>
+</div>
+
+{% endblock %}

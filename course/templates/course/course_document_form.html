@@ -1,0 +1,12 @@
+{% extends 'schedule/layout.html' %}
+
+{% block content %}
+  <!-- Upload form. Note enctype attribute! -->
+  <form action="{% url 'course:upload' course_name=course_name %}"
+        method="post" enctype="multipart/form-data" 
+                      class="mt-5 text-center">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-danger">Upload</button>
+  </form>
+{% endblock %}

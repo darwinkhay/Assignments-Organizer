@@ -1,0 +1,64 @@
+{% extends 'schedule/layout.html' %}
+
+
+{% block content %}
+
+<div class="bg3"></div>
+  <section>
+    <div class="container-fluid p-3 bg-dark bg-gradient text-white text-center">
+      <h1>{{ course.course_name }}</h1>
+    </div>
+    <div class="p-5">
+      <div class="mt-5">
+        {% if user in course.users.all %}
+        <a href="{% url 'course:upload' course_name=course.course_name %}"
+           class="btn btn-primary"><i class="bi bi-file-earmark-arrow-up-fill"></i>
+          Upload a new document
+        </a>
+        {% else %}
+        <!-- I'm trying to make this join course button that enrolls a user into a course
+        when they click it. DID IT -->
+        <form action="{% url 'course:form' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" value="{{ course.course_name }}" name="course_name">
+          <input type="submit" value="Join course" class="btn btn-primary" >
+        </form>
+        {% endif %}
+        <a href="{% url 'course:list' %}" class="btn btn-warning"><i class="bi bi-arrow-left-square-fill"></i> Return to list</a>
+      </div>
+
+      <h4>Assignments</h4>
+      {% if assignments %}
+        <ul class="list-group list-group-flush mx-5 my-3 w-50">
+          {% for item in assignments %}
+            <li class="list-group-item">{{ item.title }} {{ item.due_date }}</li>
+          {% endfor %}
+
+        </ul>
+      {% else %}
+        <p>No assignments for this course</p>
+      {% endif %}
+      <h4>Students</h4>
+      {% if course.users %}
+        <ul class="list-group list-group-flush mx-5 my-3 w-50">
+          {% for user in course.users.all %}
+            <li class="list-group-item">{{ user.username }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>no user signed up for this course</p>
+      {% endif %}
+      <h4 class="">Documents</h4>
+      {% if documents %}
+        <ul class="list-group mx-5 my-3 w-50">
+          {% for doc in documents %}
+            <li class="list-group-item"><a href="{{ doc.docfile.url }}" target="_blank" rel="noopener noreferrer">{{ doc.filename }}</a></li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No document in this course</p>
+      {% endif %}
+
+    </div>
+  </section>
+{% endblock %}

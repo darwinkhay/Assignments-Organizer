@@ -1,0 +1,143 @@
+<!--
+/*
+
+*  REFERENCES
+*  Title: <Modal>
+*  Author: <Bootstrap Team>
+*  Date: <11/23/2021>
+*  Code version: <Bootstrapv5.0>
+*  URL: <https://getbootstrap.com/docs/5.0/components/modal/>
+*  Software License: <MIT license>
+*
+
+*/
+
+-->
+
+
+
+
+<html lang="en">
+  <head>
+    <title>Your Workspace</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="A-22">
+    <meta name="description" content="Personal assignment and note organizer">
+    <meta name="keywords" content="organizer">
+
+    {% load static %}
+    {% load django_bootstrap5 %}
+    {% load socialaccount %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule/base.css' %}">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'schedule:index' %}" style="color:Green"><i class="bi bi-journal-text"></i> Organizer </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarItems" aria-controls="navbarItems" aria-expanded="false" aria-label="Navigation Toggler" >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarItems">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link {% if request.path == '/' %} active {% endif %}" aria-current="page" href="{% url 'schedule:index' %}">
+                  Home
+                </a>
+              </li>
+
+              {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link {% if '/course' in request.path %} active {% endif %}"
+                     href="{% url 'course:list' %}">
+                    Course
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link {% if '/assignment' in request.path %} active {% endif %}"
+                     href="{% url 'schedule:assignment_list' %}">
+                    Assignment
+                  </a>
+                </li>
+
+
+                <li class="nav-item">
+                  <a class="nav-link"
+                     href="{% url 'schedule:calendar1' %}">
+                    Calendar
+                  </a>
+                </li>
+
+                <!--<li class="nav-item">
+                  <a class="nav-link navbar-right"
+                     href="{% url 'logout' %}">
+                    Logout
+                  </a>
+                </li> -->
+
+                <li class="nav-item">
+                   <a href="#" class="nav-link navbar-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Logout
+                  </a>
+                </li>
+
+
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link {% if '/account' in request.path %} active {% endif %}"
+                     href="{% provider_login_url 'google' %}">
+                    Login
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Modal
+      I referenced the Bootstrap modal tutorial for this Modal
+      -->
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to log out?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Confirm by clicking yes
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <a href="{% url 'logout' %}">
+                <button type="button" class="btn btn-primary">Yes</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </header>
+
+
+    {% block content %}
+    {% load static %}
+
+    {% endblock %}
+    <div>
+      <footer class="page-footer font-small blue text-center">
+      <p>Copyright &copy; 2021 A-22</p>
+      </footer>
+    </div>
+
+  </body>
+</html>

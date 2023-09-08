@@ -1,0 +1,52 @@
+{% extends 'schedule/layout.html' %}
+
+{% block content %}
+
+  <section>
+    <div class="container-fluid p-3 bg-dark text-white text-center">
+      <h1>Sign up for a course</h1>
+      <p>Search for existing courses or create a new one</p>
+    </div>
+
+    <div class="bg2"></div>
+
+    <form action="{% url 'course:form' %}" method="post" class="mt-3 text-center search">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+        {% if error_message %}
+          <div class="alert alert-danger">
+            <strong>Warning!</strong> Please fill out the text boxes.
+          </div>
+        {% endif %}
+
+      <button type="submit" class="btn btn-primary text-white" >
+        Create
+      </button>
+    </form>
+    <div class="content">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Existing Courses</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% if course_list %}
+            {% for course in course_list %}
+              <tr >
+                <td><a href="{% url 'course:detail' course_name=course.course_name %}">{{ course.course_name }}</a></td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td>No course, sign up for a new course!</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+{% endblock %}
